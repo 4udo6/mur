@@ -170,7 +170,7 @@
 
     <div class="container">
         <!-- Кнопка управления песней -->
-        <button class="play-button" onclick="toggleSong()">❚❚ Остановить песню</button>
+        <button class="play-button" onclick="toggleSong()">❚❚ Начать позддравление</button>
 
         <div class="emoji">🎉🎂🎈</div>
         <h1>С Днём Рождения, Принцесса!</h1>
@@ -256,7 +256,7 @@
             var song = document.getElementById('song');
             if (song.paused) {
                 song.play();
-                document.querySelector('.play-button').innerHTML = "❚❚ Начать поздравление";
+                document.querySelector('.play-button').innerHTML = "❚❚ Пауза";
             } else {
                 song.pause();
                 document.querySelector('.play-button').innerHTML = "▶ Начать поздравление";

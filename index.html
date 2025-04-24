@@ -61,6 +61,7 @@
             font-size: 36px;
         }
 
+        /* Колесо желаний */
         .wheel-container {
             margin-top: 40px;
             position: relative;
@@ -113,6 +114,7 @@
             color: #ec407a;
         }
 
+        /* Прочее оформление */
         .confetti {
             position: fixed;
             width: 10px;
@@ -129,6 +131,15 @@
             100% { transform: translateY(100vh) rotate(360deg); }
         }
 
+        /* Видео */
+        iframe {
+            margin-top: 40px;
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+
+        /* Кнопка воспроизведения песни */
         .play-button {
             background: linear-gradient(135deg, #ff4081, #f06292);
             color: white;
@@ -137,14 +148,18 @@
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 30px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             transition: background 0.3s;
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
         }
 
         .play-button:hover {
             background: linear-gradient(135deg, #ec407a, #d81b60);
         }
+
     </style>
 </head>
 <body>
@@ -162,13 +177,12 @@
     </script>
 
     <div class="container">
-        <button class="play-button" onclick="toggleSong()">❚❚ Остановить песню</button>
         <div class="emoji">🎉🎂🎈</div>
         <h1>С Днём Рождения, Принцесса!</h1>
         <p>Дорогая Алина!</p>
         <p>Желаю тебе море счастья, оставайся такой какая ты есть!<br>
         ТЫ одна такая на этот мир, сияй  ✨</p>
-        <p>ТЫ самая-самая во всех смыслах 🌟</p>
+        <p> ТЫ самая-самая во всех смыслах 🌟</p>
 
         <!-- Колесо желаний -->
         <div class="wheel-container">
@@ -178,11 +192,12 @@
 
         <div class="message" id="message"></div>
 
-        <!-- Видео по нажатию -->
+        <!-- Видео с YouTube -->
         <div style="margin-top: 40px;">
-            <div id="video-container">
-                <button class="play-button" onclick="loadVideo()">▶ Воспроизвести видео</button>
-            </div>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/rnjbemXGNmw"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
         </div>
     </div>
 
@@ -196,95 +211,90 @@
         С любовью твое чудовище 💖
     </footer>
 
-    <!-- Шарики -->
-    <script>
-        for (let i = 0; i < 20; i++) {
-            let balloon = document.createElement('div');
-            balloon.style.position = 'fixed';
-            balloon.style.left = Math.random() * 100 + 'vw';
-            balloon.style.bottom = '-100px';
-            balloon.style.width = '40px';
-            balloon.style.height = '50px';
-            balloon.style.backgroundColor = ['#f06292', '#ffd54f', '#81d4fa', '#a5d6a7'][Math.floor(Math.random() * 4)];
-            balloon.style.borderRadius = '50%';
-            balloon.style.zIndex = '0';
-            balloon.style.animation = 'rise ' + (Math.random() * 5 + 5) + 's ease-in infinite';
-            balloon.style.opacity = 0.8;
-            document.body.appendChild(balloon);
-        }
+<!-- Шарики -->
+<script>
+    for (let i = 0; i < 20; i++) {
+        let balloon = document.createElement('div');
+        balloon.style.position = 'fixed';
+        balloon.style.left = Math.random() * 100 + 'vw';
+        balloon.style.bottom = '-100px';
+        balloon.style.width = '40px';
+        balloon.style.height = '50px';
+        balloon.style.backgroundColor = ['#f06292', '#ffd54f', '#81d4fa', '#a5d6a7'][Math.floor(Math.random() * 4)];
+        balloon.style.borderRadius = '50%';
+        balloon.style.zIndex = '0';
+        balloon.style.animation = 'rise ' + (Math.random() * 5 + 5) + 's ease-in infinite';
+        balloon.style.opacity = 0.8;
+        document.body.appendChild(balloon);
+    }
 
-        const style = document.createElement('style');
-        style.innerHTML = `@keyframes rise {
+    const style = document.createElement('style');
+    style.innerHTML = 
+        @keyframes rise {
             0% { bottom: -100px; transform: translateX(0); }
             100% { bottom: 100vh; transform: translateX(50px); }
-        }`;
-        document.head.appendChild(style);
-    </script>
-
-    <!-- Фейерверки -->
-    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.10.0/dist/fireworks.js"></script>
-    <script>
-        const container = document.body;
-        const fireworks = new Fireworks.default(container, {
-            rocketsPoint: { min: 0, max: 100 },
-            hue: { min: 0, max: 360 },
-            delay: { min: 15, max: 30 },
-            speed: 2,
-            acceleration: 1.05,
-            friction: 0.97,
-            gravity: 1.5,
-            particles: 80,
-            trace: 3,
-            explosion: 5
-        });
-        fireworks.start();
-    </script>
-
-    <script>
-        // Аудио: включить/выключить
-        function toggleSong() {
-            var song = document.getElementById('song');
-            if (song.paused) {
-                song.play();
-                document.querySelectorAll('.play-button')[0].innerHTML = "❚❚ Остановить песню";
-            } else {
-                song.pause();
-                document.querySelectorAll('.play-button')[0].innerHTML = "▶ Начать позддравление";
-            }
         }
+    ;
+    document.head.appendChild(style);
+</script>
 
-        // Колесо желаний
-        const wishes = [
-            "Счастья и удачи во всем!",
-            "Пусть каждый день будет ярким и незабываемым!",
-            "Смейся чаще, люби искренне и живи с удовольствием!",
-            "Здоровья тебе и твоим близким!",
-            "Ты заслуживаешь только лучшего, пусть так и будет!",
-            "Пусть твоя жизнь будет как сказка!"
-        ];
+<!-- Фейерверки -->
+<script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.10.0/dist/fireworks.js"></script>
+<script>
+    const container = document.body;
+    const fireworks = new Fireworks.default(container, {
+        rocketsPoint: { min: 0, max: 100 },
+        hue: { min: 0, max: 360 },
+        delay: { min: 15, max: 30 },
+        speed: 2,
+        acceleration: 1.05,
+        friction: 0.97,
+        gravity: 1.5,
+        particles: 80,
+        trace: 3,
+        explosion: 5
+    });
+    fireworks.start();
+</script>
 
-        function spinWheel() {
-            const wheel = document.getElementById('wheel');
-            const message = document.getElementById('message');
-            const randomRotation = Math.floor(Math.random() * 360) + 720;
-            wheel.style.transform = `rotate(${randomRotation}deg)`;
-            setTimeout(() => {
-                const randomIndex = Math.floor(Math.random() * wishes.length);
-                message.innerText = wishes[randomIndex];
-            }, 4000);
+<script>
+    // Функция для воспроизведения/остановки песни
+    function toggleSong() {
+        var song = document.getElementById('song');
+        if (song.paused) {
+            song.play();
+            document.querySelector('.play-button').innerHTML = "❚❚ Остановить песню";
+        } else {
+            song.pause();
+            document.querySelector('.play-button').innerHTML = "▶ Начать поздравление";
         }
+    }
 
-        // Видео загрузка
-        function loadVideo() {
-            const container = document.getElementById('video-container');
-            container.innerHTML = `
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/rnjbemXGNmw?autoplay=1"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen></iframe>
-            `;
-        }
-    </script>
+    // Колесо желаний
+    const wishes = [
+        "Счастья и удачи во всем!",
+        "Пусть каждый день будет ярким и незабываемым!",
+        "Смейся чаще, люби искренне и живи с удовольствием!",
+        "Здоровья тебе и твоим близким!",
+        "Ты заслуживаешь только лучшего, пусть так и будет!",
+        "Пусть твоя жизнь будет как сказка!"
+    ];
+
+    function spinWheel() {
+        const wheel = document.getElementById('wheel');
+        const message = document.getElementById('message');
+        const randomRotation = Math.floor(Math.random() * 360) + 720; // Минимум 2 полных оборота
+
+        // Вращение колеса
+        wheel.style.transform = `rotate(${randomRotation}deg)`;
+
+        // Показ случайного пожелания
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * wishes.length);
+            message.innerText = wishes[randomIndex];
+        }, 4000); // Задержка для завершения вращения
+    }
+</script>
 
 </body>
 </html>

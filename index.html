@@ -372,12 +372,16 @@
         'event_label': `IP: ${ip} — Time: ${now}`
       });
     });
-</script>
-    <script>
-fetch("https://script.google.com/macros/s/AKfycbxRn3yV0K0ghrj4hhuk_TmUA8i13xTivGkx_ZzThOmbdlUYJCLq3AoBqVXnBQ1DBfbTtg/exec", {
-  method: "POST",
-  headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  body: `ip=1`
-});
+<script>
+fetch('https://api.ipify.org?format=json')
+  .then(res => res.json())
+  .then(data => {
+    const ip = data.ip;
+    fetch("https://script.google.com/macros/s/AKfycbxRn3yV0K0ghrj4hhuk_TmUA8i13xTivGkx_ZzThOmbdlUYJCLq3AoBqVXnBQ1DBfbTtg/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `ip=${ip}`
+    });
+  });
 </script>
 </body>

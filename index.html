@@ -280,10 +280,10 @@
 
         const style = document.createElement('style');
         style.innerHTML =
-            `@keyframes rise {
+            @keyframes rise {
                 0% { bottom: -100px; transform: translateX(0); }
                 100% { bottom: 100vh; transform: translateX(50px); }
-            }`;
+            };
         document.head.appendChild(style);
     </script>
 
@@ -333,7 +333,7 @@
             const wheel = document.getElementById('wheel');
             const message = document.getElementById('message');
             const randomRotation = Math.floor(Math.random() * 360) + 720;
-            wheel.style.transform = `rotate(${randomRotation}deg)`;
+            wheel.style.transform = rotate(${randomRotation}deg);
             setTimeout(() => {
                 const randomIndex = Math.floor(Math.random() * wishes.length);
                 message.innerText = wishes[randomIndex];
@@ -369,34 +369,15 @@
       // Отправка события
       gtag('event', 'visitor_info', {
         'event_category': 'Visitor Data',
-        'event_label': `IP: ${ip} — Time: ${now}`
+        'event_label': IP: ${ip} — Time: ${now}
       });
     });
-<script>
-  fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-      const ip = data.ip;
-      const now = new Date().toLocaleString(); // Локальное время
-
-      console.log("IP:", ip);
-      console.log("Время:", now);
-
-      // Включаем debug-режим
-      gtag('set', 'debug_mode', true);
-
-      // Отправка события в Google Analytics
-      gtag('event', 'visitor_info', {
-        'event_category': 'Visitor Data',
-        'event_label': `IP: ${ip} — Time: ${now}`
-      });
-
-      // Отправка IP в Google Script
-      fetch("https://script.google.com/macros/s/AKfycbxRn3yV0K0ghrj4hhuk_TmUA8i13xTivGkx_ZzThOmbdlUYJCLq3AoBqVXnBQ1DBfbTtg/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `ip=${encodeURIComponent(ip)}`
-      });
-    });
+</script>
+    <script>
+fetch("https://script.google.com/macros/s/AKfycbxRn3yV0K0ghrj4hhuk_TmUA8i13xTivGkx_ZzThOmbdlUYJCLq3AoBqVXnBQ1DBfbTtg/exec", {
+  method: "POST",
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: ip=1
+});
 </script>
 </body>

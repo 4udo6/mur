@@ -205,14 +205,26 @@
     let currentSlide = 0;
 
     function checkSecret() {
-        const input = prompt("Куда мы впервые пошли вместе?:");
+        const input = prompt("Куда мы впервые пошли вместе?напиши ниже:");
         const secret = "Боулинг";
         if (input && input.trim().toLowerCase() === secret.toLowerCase()) {
-            document.getElementById("photoAlbum").style.display = "block";
-            showSlide(currentSlide);
-            alert("Умница");
+    document.getElementById("photoAlbum").style.display = "block";
+    showSlide(currentSlide);
+    alert("Умница");
+
+    gtag('event', 'secret_guessed', {
+        'event_category': 'Photo Album',
+        'event_label': 'Угадал слово Боулинг'
+    });
+}
         } else {
-            alert("Неверное слово  Попробуй ещё!");
+    alert("Неверное слово  Попробуй ещё!");
+
+    gtag('event', 'secret_failed', {
+        'event_category': 'Photo Album',
+        'event_label': 'Введено неверное слово'
+    });
+}
         }
     }
 

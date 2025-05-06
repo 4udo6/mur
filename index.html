@@ -205,26 +205,14 @@
     let currentSlide = 0;
 
     function checkSecret() {
-        const input = prompt("Куда мы впервые пошли вместе?напиши ниже:");
+        const input = prompt("Куда мы впервые пошли вместе?:");
         const secret = "Боулинг";
         if (input && input.trim().toLowerCase() === secret.toLowerCase()) {
-    document.getElementById("photoAlbum").style.display = "block";
-    showSlide(currentSlide);
-    alert("Умница");
-
-    gtag('event', 'secret_guessed', {
-        'event_category': 'Photo Album',
-        'event_label': 'Угадал слово Боулинг'
-    });
-}
+            document.getElementById("photoAlbum").style.display = "block";
+            showSlide(currentSlide);
+            alert("Умница");
         } else {
-    alert("Неверное слово  Попробуй ещё!");
-
-    gtag('event', 'secret_failed', {
-        'event_category': 'Photo Album',
-        'event_label': 'Введено неверное слово'
-    });
-}
+            alert("Неверное слово  Попробуй ещё!");
         }
     }
 
@@ -363,6 +351,22 @@
                 });
             });
         }
+    });
+</script>
+    <script>
+  fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+      const ip = data.ip;
+      const now = new Date().toLocaleString(); // Локальное время
+      
+      console.log(" IP:", ip);
+      console.log("Время :", now);
+
+      gtag('event', 'visitor_info', {
+        'event_category': 'Visitor Data',
+        'event_label': `IP: ${ip} — Time: ${now}`
+      });
     });
 </script>
 </body>

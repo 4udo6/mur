@@ -196,7 +196,7 @@
             <img class="album-slide" src="bowling1.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: block;">
             <img class="album-slide" src="bowling2.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: none;">
             <img class="album-slide" src="bowling3.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: none;">
-            <button onclick="changeSlide(1)" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%); font-size: 32px; background: none; border: none; cursor: pointer;">❯</button>
+            <button id="nextPhotoBtn" onclick="changeSlide(1)" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%); font-size: 32px; background: none; border: none; cursor: pointer;">❯</button>
         </div>
     </div>
 </div>
@@ -340,6 +340,18 @@
             }, 4000);
         }
     </script>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const nextBtn = document.getElementById("nextPhotoBtn");
+        if (nextBtn) {
+            nextBtn.addEventListener("click", function() {
+                gtag('event', 'next_photo', {
+                    'event_category': 'Photo Album',
+                    'event_label': 'Клик по кнопке пролистывания вправо'
+                });
+            });
+        }
+    });
+</script>
 </body>
 </html>

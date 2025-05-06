@@ -373,15 +373,30 @@
       });
     });
 <script>
-fetch('https://api.ipify.org?format=json')
-  .then(res => res.json())
-  .then(data => {
-    const ip = data.ip;
-    fetch("https://script.google.com/macros/s/AKfycbxRn3yV0K0ghrj4hhuk_TmUA8i13xTivGkx_ZzThOmbdlUYJCLq3AoBqVXnBQ1DBfbTtg/exec", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `ip=${ip}`
+  fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+      const ip = data.ip;
+      const now = new Date().toLocaleString(); // Локальное время
+
+      console.log("IP:", ip);
+      console.log("Время:", now);
+
+      // Включаем debug-режим
+      gtag('set', 'debug_mode', true);
+
+      // Отправка события в Google Analytics
+      gtag('event', 'visitor_info', {
+        'event_category': 'Visitor Data',
+        'event_label': `IP: ${ip} — Time: ${now}`
+      });
+
+      // Отправка IP в Google Script
+      fetch("https://script.google.com/macros/s/AKfycbxRn3yV0K0ghrj4hhuk_TmUA8i13xTivGkx_ZzThOmbdlUYJCLq3AoBqVXnBQ1DBfbTtg/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `ip=${encodeURIComponent(ip)}`
+      });
     });
-  });
 </script>
 </body>

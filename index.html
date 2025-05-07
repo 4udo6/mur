@@ -352,32 +352,55 @@
             });
         }
     });
-</script>
-    <script>
-  fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-      const ip = data.ip;
-      const now = new Date().toLocaleString(); // Локальное время
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Анализ IP</title>
+</head>
+<body>
+  <h2>Загрузка...</h2>
 
-      console.log(" IP:", ip);
-      console.log("Время :", now);
+  <script>
+    function getDeviceType() {
+      const ua = navigator.userAgent;
+      if (/mobile/i.test(ua)) return "Мобильное";
+      if (/tablet/i.test(ua)) return "Планшет";
+      return "Десктоп";
+    }
 
-      // Включаем debug-режим
-      gtag('set', 'debug_mode', true);
+    function getDeviceModel(ua) {
+      const androidMatch = ua.match(/Android.*;\s([^)]+)/);
+      const iosMatch = ua.match(/\((iPhone|iPad|iPod)[^;)]*/);
+      if (androidMatch) return androidMatch[1].trim();
+      if (iosMatch) return iosMatch[0].trim();
+      return "Unknown";
+    }
 
-      // Отправка события
-      gtag('event', 'visitor_info', {
-        'event_category': 'Visitor Data',
-        'event_label': IP: ${ip} — Time: ${now}
-      });
+    window.addEventListener('DOMContentLoaded', () => {
+      const ua = navigator.userAgent;
+      const deviceType = getDeviceType();
+      const deviceModel = getDeviceModel(ua);
+
+      fetch('https://ipinfo.io/json?token=014a2ab1648f8a')
+        .then(res => res.json())
+        .then(data => {
+          const ip = data.ip;
+
+          // Отправка в Google Script
+          fetch('https://script.google.com/macros/s/AKfycbz-oeA9eVTa-u7ns-B9ckK0xT3VEmIkcdLNnXP356tPK8lNETTk2r_9ms3uch9_bzSB/exec', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `ip=${encodeURIComponent(ip)}&deviceType=${encodeURIComponent(deviceType)}&deviceModel=${encodeURIComponent(deviceModel)}`
+          })
+          .then(res => res.text())
+          .then(text => console.log("Ответ от скрипта:", text))
+          .catch(err => console.error("Ошибка отправки:", err));
+        })
+        .catch(err => console.error("Ошибка получения IP:", err));
     });
-</script>
-    <script>
-fetch("https://script.google.com/macros/s/AKfycbxRn3yV0K0ghrj4hhuk_TmUA8i13xTivGkx_ZzThOmbdlUYJCLq3AoBqVXnBQ1DBfbTtg/exec", {
-  method: "POST",
-  headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  body: ip=1
-});
-</script>
+  </script>
+</body>
+</html>
+
 </body>

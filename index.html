@@ -362,45 +362,38 @@
   <h2>Загрузка...</h2>
 
   <script>
-    function getDeviceType() {
-      const ua = navigator.userAgent;
-      if (/mobile/i.test(ua)) return "Мобильное";
-      if (/tablet/i.test(ua)) return "Планшет";
-      return "Десктоп";
-    }
-
-    function getDeviceModel(ua) {
-      const androidMatch = ua.match(/Android.*;\s([^)]+)/);
-      const iosMatch = ua.match(/\((iPhone|iPad|iPod)[^;)]*/);
-      if (androidMatch) return androidMatch[1].trim();
-      if (iosMatch) return iosMatch[0].trim();
-      return "Unknown";
-    }
-
+    // Сразу после загрузки страницы
     window.addEventListener('DOMContentLoaded', () => {
-      const ua = navigator.userAgent;
-      const deviceType = getDeviceType();
-      const deviceModel = getDeviceModel(ua);
-
-      fetch('https://ipinfo.io/json?token=014a2ab1648f8a')
-        .then(res => res.json())
+      // Получаем IP с помощью ipinfo.io API
+      fetch('https://ipinfo.io/json?token=014a2ab1648f8a') // Замените на свой токен
+        .then(response => response.json())
         .then(data => {
-          const ip = data.ip;
+          const ip = data.ip; // Получаем IP
+          const deviceType = navigator.userAgent.includes('Mobile') ? 'Мобильное устройство' : 'Десктоп';
+          const deviceModel = navigator.userAgent; // Получаем модель устройства через userAgent
+          const currentDateTime = new Date().toLocaleString(); // Текущее время
 
-          // Отправка в Google Script
+          // Логируем информацию в консоль
+          console.log("IP:", ip);
+          console.log("Тип устройства:", deviceType);
+          console.log("Модель устройства:", deviceModel);
+          console.log("Время:", currentDateTime);
+
+          // Отправляем данные в Google Apps Script
           fetch('https://script.google.com/macros/s/AKfycbz-oeA9eVTa-u7ns-B9ckK0xT3VEmIkcdLNnXP356tPK8lNETTk2r_9ms3uch9_bzSB/exec', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `ip=${encodeURIComponent(ip)}&deviceType=${encodeURIComponent(deviceType)}&deviceModel=${encodeURIComponent(deviceModel)}`
+            body: `ip=${encodeURIComponent(ip)}&deviceType=${encodeURIComponent(deviceType)}&deviceModel=${encodeURIComponent(deviceModel)}&currentDateTime=${encodeURIComponent(currentDateTime)}`
           })
-          .then(res => res.text())
-          .then(text => console.log("Ответ от скрипта:", text))
-          .catch(err => console.error("Ошибка отправки:", err));
+          .then(response => response.text())
+          .then(data => console.log('Ответ от скрипта:', data))
+          .catch(error => console.error('Ошибка при отправке:', error));
         })
-        .catch(err => console.error("Ошибка получения IP:", err));
+        .catch(error => {
+          console.error('Ошибка при получении IP:', error);
+        });
     });
   </script>
-</body>
-</html>
 
 </body>
+</html>

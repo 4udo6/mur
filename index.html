@@ -353,31 +353,32 @@
          }
      });
  </script>
-     <script>
-   fetch('https://api.ipify.org?format=json')
-     .then(response => response.json())
-     .then(data => {
-       const ip = data.ip;
-       const now = new Date().toLocaleString(); // Локальное время
- 
-       console.log(" IP:", ip);
-       console.log("Время :", now);
- 
-       // Включаем debug-режим
-       gtag('set', 'debug_mode', true);
- 
-       // Отправка события
-       gtag('event', 'visitor_info', {
-         'event_category': 'Visitor Data',
-         'event_label': `IP: ${ip} — Time: ${now}`
-       });
-     });
-      
 <script>
-  // Функция для определения типа устройства
+  // Получение IP и отправка события в Google Analytics
+  fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+      const ip = data.ip;
+      const now = new Date().toLocaleString(); // Локальное время
+
+      console.log("IP:", ip);
+      console.log("Время:", now);
+
+      // Включаем debug-режим
+      gtag('set', 'debug_mode', true);
+
+      // Отправка события
+      gtag('event', 'visitor_info', {
+        'event_category': 'Visitor Data',
+        'event_label': `IP: ${ip} — Time: ${now}`
+      });
+    });
+</script>
+
+<script>
+  // Функция для определения типа устройства и отправки в Google Apps Script
   function getDeviceType() {
     const ua = navigator.userAgent;
-
     if (/android/i.test(ua)) return "Android";
     if (/iPad|iPhone|iPod/.test(ua)) return "iOS";
     if (/Windows NT/i.test(ua)) return "Windows";
@@ -386,7 +387,6 @@
     return "Unknown";
   }
 
-  // Сразу после загрузки страницы
   window.addEventListener('DOMContentLoaded', () => {
     const device = getDeviceType();
 
@@ -397,7 +397,7 @@
         console.log("IP:", ip);
         console.log("Устройство:", device);
 
-        fetch('https://script.google.com/macros/s/AKfycbybUrqc7j0bxyNFcKkr4bB-rTw48FW3o8AJUwrA4hl5fy3EaAYr1YutvlTSB3FGKHs/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbz-oeA9eVTa-u7ns-B9ckK0xT3VEmIkcdLNnXP356tPK8lNETTk2r_9ms3uch9_bzSB/exec', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: `ip=${encodeURIComponent(ip)}&device=${encodeURIComponent(device)}`

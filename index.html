@@ -188,7 +188,7 @@
           <p>я знаю что настанет еще наше время, и пусть оно начнется с поездки в Париж!</p>
  
   <div style="margin: 40px 0;">
-      <button class="play-button" onclick="checkSecret()">Открой воспоминания🎁</button>
+      <button class="play-button" onclick="checkSecret()">Новые воспоминания🎁</button>
  
  
       <div id="photoAlbum" style="display:none; margin-top: 20px;">
@@ -197,6 +197,7 @@
               <button onclick="changeSlide(-1)" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%); font-size: 32px; background: none; border: none; cursor: pointer;">❮</button>
               <img class="album-slide" src="bowling1.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: block;">
               <img class="album-slide" src="bowling2.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: none;">
+            <img class="album-slide" src="bowling4.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: none;">
               <img class="album-slide" src="bowling3.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: none;">
               <button id="nextPhotoBtn" onclick="changeSlide(1)" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%); font-size: 32px; background: none; border: none; cursor: pointer;">❯</button>
           </div>
@@ -207,8 +208,8 @@
       let currentSlide = 0;
  
       function checkSecret() {
-          const input = prompt("Куда мы впервые пошли вместе?:");
-          const secret = "Боулинг";
+          const input = prompt("Как мы хотели назвать Лали?:");
+          const secret = "Ами";
           if (input && input.trim().toLowerCase() === secret.toLowerCase()) {
               document.getElementById("photoAlbum").style.display = "block";
               showSlide(currentSlide);

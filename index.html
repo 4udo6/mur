@@ -357,37 +357,6 @@
       });
     </script>
 <script>
-  // Функция для отправки результата угадывания в Google Sheets
-function sendGuessResult(isCorrect) {
-    const resultText = isCorrect ? "Угадано правильно" : "Неверный ответ";
-    const time = new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" });
-    const ip = "пример_IP";  // Здесь можно динамически получить IP, если нужно
-    const device = getDeviceType();  // Определение устройства (например, Android, iOS и т.д.)
-
-    fetch('https://script.google.com/macros/s/AKfycbybUrqc7j0bxyNFcKkr4bB-rTw48FW3o8AJUwrA4hl5fy3EaAYr1YutvlTSB3FGKHs/exec', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `result=${encodeURIComponent(resultText)}&ip=${encodeURIComponent(ip)}&device=${encodeURIComponent(device)}&time=${encodeURIComponent(time)}`
-    })
-    .then(response => response.text())
-    .then(data => console.log('Ответ от скрипта:', data))
-    .catch(error => console.error('Ошибка при отправке результата:', error));
-}
-
-// Функция для проверки угаданного слова
-function checkSecret() {
-    const input = prompt("Куда мы впервые пошли вместе?:");
-    const secret = "Боулинг"; // Правильный ответ
-
-    if (input && input.trim().toLowerCase() === secret.toLowerCase()) {
-        alert("Умница! Ты угадал!");
-        // Отправка информации о правильном ответе в Google Sheets
-        sendGuessResult(true);
-    } else {
-        alert("Неверное слово. Попробуй ещё!");
-        // Отправка информации о неправильном ответе в Google Sheets
-        sendGuessResult(false);
-    }
   // Функция для определения типа устройства
   function getDeviceType() {
     const ua = navigator.userAgent;

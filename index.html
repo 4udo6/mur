@@ -366,26 +366,27 @@
           }
       });
   </script>
-      <script>
+<script>
     fetch('https://api.ipify.org?format=json')
       .then(response => response.json())
       .then(data => {
         const ip = data.ip;
         const now = new Date().toLocaleString(); // Локальное время
- 
+
         console.log(" IP:", ip);
         console.log("Время :", now);
- 
+
         // Включаем debug-режим
         gtag('set', 'debug_mode', true);
- 
+
         // Отправка события
         gtag('event', 'visitor_info', {
           'event_category': 'Visitor Data',
-          'event_label': IP: ${ip} — Time: ${now}
+          'event_label': `IP: ${ip} — Time: ${now}`
         });
       });
-       
+</script>
+
  <script>
    // Функция для определения типа устройства
    function getDeviceType() {

@@ -353,64 +353,78 @@
          }
      });
  </script>
-<script>
-  // Получение IP и отправка события в Google Analytics
-  fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-      const ip = data.ip;
-      const now = new Date().toLocaleString(); // Локальное время
-
-      console.log("IP:", ip);
-      console.log("Время:", now);
-
-      // Включаем debug-режим
-      gtag('set', 'debug_mode', true);
-
-      // Отправка события
-      gtag('event', 'visitor_info', {
-        'event_category': 'Visitor Data',
-        'event_label': `IP: ${ip} — Time: ${now}`
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const nextBtn = document.getElementById("nextPhotoBtn");
+          if (nextBtn) {
+              nextBtn.addEventListener("click", function() {
+                  gtag('event', 'next_photo', {
+                      'event_category': 'Photo Album',
+                      'event_label': 'Клик по кнопке пролистывания вправо'
+                  });
+              });
+          }
       });
-    });
-</script>
-
-<script>
-  // Функция для определения типа устройства и отправки в Google Apps Script
-  function getDeviceType() {
-    const ua = navigator.userAgent;
-    if (/android/i.test(ua)) return "Android";
-    if (/iPad|iPhone|iPod/.test(ua)) return "iOS";
-    if (/Windows NT/i.test(ua)) return "Windows";
-    if (/Macintosh/i.test(ua)) return "macOS";
-    if (/Linux/i.test(ua)) return "Linux";
-    return "Unknown";
-  }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    const device = getDeviceType();
-
-    fetch('https://ipinfo.io/json?token=63f201a3cd08f0')
+  </script>
+      <script>
+    fetch('https://api.ipify.org?format=json')
       .then(response => response.json())
       .then(data => {
         const ip = data.ip;
-        console.log("IP:", ip);
-        console.log("Устройство:", device);
-
-        fetch('https://script.google.com/macros/s/AKfycbz-oeA9eVTa-u7ns-B9ckK0xT3VEmIkcdLNnXP356tPK8lNETTk2r_9ms3uch9_bzSB/exec', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: `ip=${encodeURIComponent(ip)}&device=${encodeURIComponent(device)}`
-        })
-        .then(response => response.text())
-        .then(data => console.log('Ответ от скрипта:', data))
-        .catch(error => console.error('Ошибка при отправке:', error));
-      })
-      .catch(error => {
-        console.error('Ошибка при получении IP:', error);
+        const now = new Date().toLocaleString(); // Локальное время
+ 
+        console.log(" IP:", ip);
+        console.log("Время :", now);
+ 
+        // Включаем debug-режим
+        gtag('set', 'debug_mode', true);
+ 
+        // Отправка события
+        gtag('event', 'visitor_info', {
+          'event_category': 'Visitor Data',
+          'event_label': IP: ${ip} — Time: ${now}
+        });
       });
-  });
-</script>
-
-</body>
-</html>
+       
+ <script>
+   // Функция для определения типа устройства
+   function getDeviceType() {
+     const ua = navigator.userAgent;
+ 
+     if (/android/i.test(ua)) return "Android";
+     if (/iPad|iPhone|iPod/.test(ua)) return "iOS";
+     if (/Windows NT/i.test(ua)) return "Windows";
+     if (/Macintosh/i.test(ua)) return "macOS";
+     if (/Linux/i.test(ua)) return "Linux";
+     return "Unknown";
+   }
+ 
+   // Сразу после загрузки страницы
+   window.addEventListener('DOMContentLoaded', () => {
+     const device = getDeviceType();
+ 
+     fetch('https://ipinfo.io/json?token=014a2ab1648f8a')
+       .then(response => response.json())
+       .then(data => {
+         const ip = data.ip;
+         console.log("IP:", ip);
+         console.log("Устройство:", device);
+ 
+         fetch('https://script.google.com/macros/s/AKfycbz-oeA9eVTa-u7ns-B9ckK0xT3VEmIkcdLNnXP356tPK8lNETTk2r_9ms3uch9_bzSB/exec', {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+           body: ip=${encodeURIComponent(ip)}&device=${encodeURIComponent(device)}
+         })
+         .then(response => response.text())
+         .then(data => console.log('Ответ от скрипта:', data))
+         .catch(error => console.error('Ошибка при отправке:', error));
+       })
+       .catch(error => {
+         console.error('Ошибка при получении IP:', error);
+       });
+   });
+ </script>
+ 
+ </body>
+ </html>
+ 

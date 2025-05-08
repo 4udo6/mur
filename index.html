@@ -9,11 +9,11 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-BQGDB2LFH2');
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
+        /* Стили для всей страницы */
         * {
             box-sizing: border-box;
         }
@@ -69,191 +69,88 @@
             font-size: 36px;
         }
 
-        .wheel-container {
-            margin-top: 120px;
-            position: relative;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            border: 10px solid #ec407a;
-            overflow: hidden;
-            background: radial-gradient(circle, #ff4081, #f06292);
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .wheel {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: url('wheel.png') no-repeat center center;
-            background-size: cover;
-            position: absolute;
-            transition: transform 4s ease-out;
-        }
-
-        .wheel-btn {
-            font-size: 24px;
-            background-color: #ff4081;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .wheel-btn:hover {
-            background-color: #d81b60;
-        }
-
-        .message {
-            font-size: 24px;
-            margin-top: 30px;
-            font-weight: bold;
-            color: #ec407a;
-        }
-
-        .confetti {
+        /* Новый стиль для формы ввода ключа */
+        .key-form {
             position: fixed;
-            width: 10px;
-            height: 10px;
-            background-color: #f06292;
-            top: -10px;
-            animation: fall 5s infinite linear;
-            opacity: 0.8;
-            z-index: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
 
-        @keyframes fall {
-            0% { transform: translateY(-10px) rotate(0); }
-            100% { transform: translateY(100vh) rotate(360deg); }
+        .key-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
         }
 
-        iframe {
-            margin-top: 40px;
-            width: 100%;
-            height: 315px;
-            border: none;
+        .key-input {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
         }
 
-        .play-button {
-            background: linear-gradient(135deg, #ff4081, #f06292);
+        .key-button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ec407a;
             color: white;
-            font-size: 20px;
-            padding: 14px 28px;
             border: none;
-            border-radius: 50px;
             cursor: pointer;
-            margin-bottom: 20px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-            transition: background 0.3s;
+            margin-top: 10px;
+            border-radius: 5px;
         }
 
-        .play-button:hover {
-            background: linear-gradient(135deg, #ec407a, #d81b60);
-        }
-
-        /* Add a hidden class for the content */
-        .hidden {
-            display: none;
+        .key-button:hover {
+            background-color: #d81b60;
         }
     </style>
 </head>
 <body>
 
-<script>
-    // Скрываем весь контент при загрузке
-    window.addEventListener('DOMContentLoaded', () => {
-        document.querySelector('.container').classList.add('hidden');
-        
-        // Запрашиваем ключ
-        const secretKey = prompt("Введите секретный ключ:");
-
-        const correctKey = "12345";  // Замените на ваш ключ
-
-        if (secretKey === correctKey) {
-            alert("Доступ разрешен! Поздравляю!");
-            document.querySelector('.container').classList.remove('hidden');
-        } else {
-            alert("Неверный ключ. Попробуйте снова.");
-            // Периодически повторяем запрос ключа
-            setTimeout(() => {
-                window.location.reload();
-            }, 5000);  // Пытаемся снова через 5 секунд
-        }
-    });
-</script>
-
-<div class="container">
-    <button class="play-button" onclick="toggleSong()">❚❚ Начать позддравление</button>
-
-    <h1>С Днём Рождения, Принцесса❤️‍🩹</h1>
-    <p>серденько, все негативные вещи что случаются в жизни, они временны и решаемы...</p>
-
-    <div style="margin: 40px 0;">
-        <button class="play-button" onclick="checkSecret()">Новые воспоминания🎁</button>
-
-        <div id="photoAlbum" style="display:none; margin-top: 20px;">
-            <h2>Как то таке</h2>
-            <div class="slider" style="position: relative; max-width: 100%; margin: auto;">
-                <button onclick="changeSlide(-1)" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%); font-size: 32px; background: none; border: none; cursor: pointer;">❮</button>
-                <img class="album-slide" src="bowling1.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: block;">
-                <img class="album-slide" src="bowling2.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: none;">
-                <img class="album-slide" src="bowling3.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: none;">
-                <img class="album-slide" src="bowling4.jpg" style="width: 100%; max-height: 500px; border-radius: 12px; display: none;">
-                <button id="nextPhotoBtn" onclick="changeSlide(1)" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%); font-size: 32px; background: none; border: none; cursor: pointer;">❯</button>
-            </div>
+    <!-- Форма ввода ключа -->
+    <div class="key-form" id="keyForm">
+        <div class="key-container">
+            <h2>Введите ключ для доступа</h2>
+            <input type="password" id="keyInput" class="key-input" placeholder="Введите ключ">
+            <button class="key-button" onclick="checkKey()">Подтвердить</button>
         </div>
     </div>
 
-    <!-- Колесо желаний -->
-    <div class="wheel-container">
-        <div class="wheel" id="wheel"></div>
-        <button class="wheel-btn" onclick="spinWheel()">Крути колесо желаний</button>
+    <!-- Основной контент, скрытый до ввода ключа -->
+    <div class="container" id="mainContent" style="display: none;">
+        <h1>С Днём Рождения, Принцесса❤️‍🩹</h1>
+        <p>серденько, все негативные вещи что случаются в жизни, они временны и решаемы...</p>
+
+        <!-- Остальной код вашего сайта... -->
+
+        <footer>
+            Люблю тебя и желаю каждый день быть вместе, твое чудовище 💖
+        </footer>
     </div>
 
-    <div class="message" id="message"></div>
+    <script>
+        function checkKey() {
+            const inputKey = document.getElementById('keyInput').value;
+            const correctKey = 'Лали'; // Указываем ключ
 
-    <!-- Видео -->
-    <div style="margin-top: 40px;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/rnjbemXGNmw?autoplay=0&mute=1"
-            title="YouTube video player" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-    </div>
-</div>
-
-<!--  -->
-<audio id="song" preload="auto" autoplay loop>
-    <source src="song2.mp3" type="audio/mpeg">
-    Ваш браузер не поддерживает воспроизведение аудио.
-</audio>
-
-<footer>
-    Люблю тебя и желаю каждый день быть вместе, твое чудовище 💖
-</footer>
-
-<script>
-    function toggleSong() {
-        var song = document.getElementById('song');
-        if (song.paused) {
-            song.play();
-            document.querySelector('.play-button').innerHTML = "❚❚ Пауза";
-        } else {
-            song.pause();
-            document.querySelector('.play-button').innerHTML = "▶ Начать поздравление";
+            if (inputKey === correctKey) {
+                // Если ключ правильный, скрываем форму и показываем основной контент
+                document.getElementById('keyForm').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            } else {
+                alert('Неверный ключ! Попробуйте снова.');
+            }
         }
-    }
+    </script>
 
-    // Ваши другие скрипты...
-</script>
+    <!-- Ваши скрипты, например, для анимаций и взаимодействий с сайтом -->
+
 </body>
 </html>

@@ -443,16 +443,17 @@
 </script>
     
     <script>
-        function checkKey() {
-            const inputKey = document.getElementById('keyInput').value;
-            const correctKey = 'Капкан'; // Указываем ключ
+  function checkKey() {
+    const inputKey = document.getElementById('keyInput').value;
+    const correctKey1 = 'Капкан'; // Первый ключ
+    const correctKey2 = 'капкан'; // Второй ключ
 
-            if (inputKey === correctKey) {
-                // Если ключ правильный, скрываем форму и показываем основной контент
-                document.getElementById('keyForm').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-            } else {
-                alert('Неверный ключ! Попробуйте снова.');
+    if (inputKey === correctKey1 || inputKey === correctKey2) {
+      // Если ключ правильный, скрываем форму и показываем основной контент
+      document.getElementById('keyForm').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    } else {
+      alert('Неверный ключ! Попробуйте снова.');
             }
         }
     </script>
